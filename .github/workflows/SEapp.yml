@@ -1,0 +1,31 @@
+name: Application build and tests run
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build-and-testsRun:  
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout the repository
+      uses: actions/checkout@v4
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 6.0.x
+    - name: Install Chrome
+      run: 
+        sudo app-get update
+        sudo app-get install -y google-chrome-stable
+    - name: Restore dependencies
+      run: dotnet restore
+    - name: Build
+      run: dotnet build --no-restore
+    - name: Test run
+      env: 
+        CHROMEWEBDRIVEN: usr/bin/google-chrome
+      run: dotnet test --no-build --verbosity normal
