@@ -25,6 +25,4 @@ jobs:
     - name: Build
       run: dotnet build --no-restore
     - name: Test run
-      env: 
-        CHROMEWEBDRIVEN: usr/bin/google-chrome
       run: dotnet test --no-build --verbosity normal
