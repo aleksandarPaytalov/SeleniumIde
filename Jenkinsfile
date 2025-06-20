@@ -22,7 +22,7 @@ pipeline {
         
         stage('Test running') {
             steps {
-                bat 'dotnet test HouseRentingSystem.sln --logger "trx;LogFileName=results.trx" --results-directory TestResults'
+                bat 'dotnet test --logger "trx;LogFileName=results.trx" --results-directory TestResults'
                 bat 'copy TestResults\\results.trx TestResults\\results.xml'
             }
             post {
